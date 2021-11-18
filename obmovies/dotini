@@ -1,0 +1,17 @@
+# Ticket: Connection
+# Rename this file to .ini after filling in your MOVIES_DB_URI and your SECRET_KEY
+# Do not surround the URI with quotes
+
+[PROD]
+SECRET_KEY = TV78w1VNpLY3d52inz9wQoieaxOq1C0P
+MOVIES_DB_URI = mongodb+srv://devops:orderbird@cluster0.kucew.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+MOVIES_NS = sample_mflix
+MONGO_POOLSIZE = 50
+MONGO_TIMEOUTMS = 2500
+
+[TEST]
+SECRET_KEY = NxtDOA8tEZSmeCf59ZX3d9hX2zyADbdF
+MOVIES_DB_URI = mongodb+srv://devops:orderbird@cluster0.kucew.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+MOVIES_NS = sample_mflix
+MONGO_POOLSIZE = 50
+MONGO_TIMEOUTMS = 2500

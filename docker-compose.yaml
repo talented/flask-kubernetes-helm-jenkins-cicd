@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: obmovies
+    build: 
+      context: ./obmovies
+      dockerfile: Dockerfile.prod
+    command: gunicorn -w 4 -b 0.0.0.0:5000 run:gunicorn_app
+    volumes:
+      - ./obmovies:/app
+    ports:
+      - 5000:5000
+    networks:
+      - api_bridge
+    
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    environment:
+      - NGINX_ENTRYPOINT_QUIET_LOGS=true
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - api_bridge
+
+networks:
+  api_bridge:
+    driver: bridge

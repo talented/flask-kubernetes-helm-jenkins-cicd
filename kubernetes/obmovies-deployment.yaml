@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: obmovies
+  name: obmovies
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: obmovies
+  template:
+    metadata:
+      labels:
+        app: obmovies
+    spec:
+      volumes:
+      - name: ini-configmap
+        configMap:
+          name: dotini
+      containers:
+      - image: fikircini/obm:${TAG}
+        name: obmovies
+        command: ["gunicorn", "-b 0.0.0.0:5000", "run:gunicorn_app"]
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        env:
+        volumeMounts:
+        - name: ini-configmap
+          mountPath: /app/.ini
+          subPath: .ini
+        resources:
+          limits:
+            cpu: 256m
+            memory: 512Mi
+          requests:
+            cpu: 128m
+            memory: 128Mi
+      
+        # TODO      
+        # livenessProbe:
+        #     httpGet:
+        #       path: /health
+        #       port: 5000
+        # readinessProbe:
+        #   # an http probe
+        #   httpGet:
+        #     path: /readiness
+        #     port: 5000
+

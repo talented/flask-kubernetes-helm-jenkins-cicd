@@ -1,0 +1,16 @@
+# upgrade release if you update this file by:
+# helm upgrade obmovies-chart obmovies-chart --values ./obmovies-chart/values.yaml
+
+deployment:
+  image: fikircini/obm
+  tag: "b890d6a"
+
+name: obmovies
+namespace: helm
+
+replicaCount: 3
+
+service:
+  port: 5000
+  nodePort: 31000
+

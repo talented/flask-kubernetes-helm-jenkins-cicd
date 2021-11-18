@@ -1,0 +1,6 @@
+.idea/
+.DS_Store
+obmovies/Pipfile*
+.ini
+.env
+.venv/

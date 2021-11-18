@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.name }}
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    checksum/config: {{ include (print $.Template.BasePath "/h-obmovies-configmap.yaml") . | sha256sum }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      volumes:
+      - name: ini-configmap
+        configMap:
+          name: dotini
+      containers:
+      - image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
+        name: {{ .Values.name }}
+        command: ["gunicorn", "-b 0.0.0.0:5000", "run:gunicorn_app"]
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: ini-configmap
+          mountPath: /app/.ini
+          subPath: .ini
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        {{- if .Values.deployment.resources }}
+        resources:
+          {{- if .Values.deployment.resources.requests }}
+          requests:
+            memory: {{ .Values.deployment.resources.requests.memory | default "512Mi" | quote }}
+            cpu: {{ .Values.deployment.resources.requests.cpu | default "256m" | quote }}
+          {{- else}}
+          requests:
+            memory: "512Mi"
+            cpu: "256m"
+          {{- end}}
+          {{- if .Values.deployment.resources.limits }}
+          limits:
+            memory: {{ .Values.deployment.resources.limits.memory | default "1Gi" | quote }}
+            cpu: {{ .Values.deployment.resources.limits.cpu | default "512m" | quote }}
+          {{- else}}  
+          limits:
+            memory: "1Gi"
+            cpu: "512m"
+          {{- end }}
+        {{- else }}
+        resources:
+          requests:
+            cpu: 64m
+            memory: 128Mi
+          limits:
+            cpu: 256m
+            memory: 512Mi
+        {{- end}}
+        
+        # TODO
+        # livenessProbe:
+        #     httpGet:
+        #       path: /health
+        #       port: 5000
+        # readinessProbe:
+        #   # an http probe
+        #   httpGet:
+        #     path: /readiness
+        #     port: 5000

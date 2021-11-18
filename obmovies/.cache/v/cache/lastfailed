@@ -1,0 +1,16 @@
+{
+  "tests/test_create_update_comments.py::test_add_comment": true,
+  "tests/test_create_update_comments.py::test_delete_is_given": true,
+  "tests/test_create_update_comments.py::test_update_comment": true,
+  "tests/test_delete_comments.py::test_add_comment_should_be_implemented": true,
+  "tests/test_delete_comments.py::test_delete_comment_should_delete_if_email_is_owner": true,
+  "tests/test_delete_comments.py::test_should_not_delete_comment_if_email_does_not_match": true,
+  "tests/test_error_handling.py::test_no_error": true,
+  "tests/test_errors.py::test_no_error": true,
+  "tests/test_get_comments.py::test_fetch_comments_for_another_movie": true,
+  "tests/test_get_comments.py::test_fetch_comments_for_movie": true,
+  "tests/test_migration.py::test_proper_type": true,
+  "tests/test_paging.py::test_supports_paging_by_text": true,
+  "tests/test_user_report.py::test_cast_popularity": true,
+  "tests/test_user_report.py::test_check_report": true
+}
