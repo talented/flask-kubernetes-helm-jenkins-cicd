@@ -4,17 +4,17 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /
-  name: {{ .Values.name }}-ingress
-  namespace: {{ .Values.namespace }}
+  name: mflix-ingress
+  namespace: default
 spec:
   rules:
-  - host: ec2-18-193-111-65.eu-central-1.compute.amazonaws.com
+  - host: your_host_name
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.name }}-service
+            name: mflix-service
             port:
               number: 80

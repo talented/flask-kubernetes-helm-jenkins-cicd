@@ -6,7 +6,7 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ .Values.namespace }}
   annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/h-obmovies-configmap.yaml") . | sha256sum }}
+    checksum/config: {{ include (print $.Template.BasePath "/h-mflix-configmap.yaml") . | sha256sum }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

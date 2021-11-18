@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apk add gcc g++ make libffi-dev openssl-dev
 
-# set work directory and copy all files under obmovies
+# set work directory and copy all files under mflix_movies
 WORKDIR /app
 COPY . /app
 

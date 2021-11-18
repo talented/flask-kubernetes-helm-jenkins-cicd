@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kubectl delete deployments.apps obmovies
-kubectl delete svc obmovies-service 
+kubectl delete deployments.apps mflix
+kubectl delete svc mflix-service 
 kubectl delete configmap dotini 
-kubectl delete ingress obmovies-ingress 
+kubectl delete ingress mflix-ingress 

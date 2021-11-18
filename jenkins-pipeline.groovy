@@ -1,11 +1,11 @@
 pipeline {
     agent any
     environment {
-        NAME = 'obmovies'
-        REGISTRY = 'fikircini/obm'
+        NAME = 'mflix_movies'
+        REGISTRY = 'dockerhub_username/mflix_movies'
         VERSION = getVersion()
-        BUILD_FILE = './obmovies/Dockerfile.prod'
-        BUILD_DIR = './obmovies'
+        BUILD_FILE = './mflix_movies/Dockerfile.prod'
+        BUILD_DIR = './mflix_movies'
         REGISTRY_CREDENTIAL = 'dockerhub'
         NS_NAME = 'helm'
     }
@@ -14,7 +14,7 @@ pipeline {
         stage('SCM') {
             steps {
                 git credentialsId: 'github',
-                url: 'git@github.com:talented/obmovies.git' /* this is a private repository for testing */
+                url: 'git@github.com:talented/flask-kubernetes-helm-jenkins-cicd.git' /* don't forget to update */
             }
         }
         stage('Docker Build') {
@@ -34,7 +34,6 @@ pipeline {
             steps {
                 sh 'docker exec ${NAME}-staging pytest -v -m connection'
                 sh 'docker exec ${NAME}-staging pytest -v -m connection_pooling'
-                /* sh 'docker exec ${NAME}-staging pytest -v -m paging' */
                 sh 'docker exec ${NAME}-staging pytest -v -m facets'
                 sh 'docker exec ${NAME}-staging pytest -v -m faceted_search'
                 sh 'docker exec ${NAME}-staging pytest -v -m user_management'

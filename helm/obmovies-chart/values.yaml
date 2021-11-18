@@ -1,11 +1,11 @@
 # upgrade release if you update this file by:
-# helm upgrade obmovies-chart obmovies-chart --values ./obmovies-chart/values.yaml
+# helm upgrade mflix-chart mflix-chart --values ./mflix-chart/values.yaml
 
 deployment:
-  image: fikircini/obm
+  image: dockerhub_username/mflix_movies
   tag: "b890d6a"
 
-name: obmovies
+name: mflix
 namespace: helm
 
 replicaCount: 3

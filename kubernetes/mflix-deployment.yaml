@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: obmovies
-  name: obmovies
+    app: mflix
+  name: mflix
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: obmovies
+      app: mflix
   template:
     metadata:
       labels:
-        app: obmovies
+        app: mflix
     spec:
       volumes:
       - name: ini-configmap
         configMap:
           name: dotini
       containers:
-      - image: fikircini/obm:${TAG}
-        name: obmovies
+      - image: dockerhub_username/mflix_movies:${TAG}
+        name: mflix
         command: ["gunicorn", "-b 0.0.0.0:5000", "run:gunicorn_app"]
         imagePullPolicy: IfNotPresent
         ports:

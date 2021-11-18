@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
   web:
-    container_name: obmovies
+    container_name: mflix_movies
     build: 
-      context: ./obmovies
+      context: ./mflix_movies
       dockerfile: Dockerfile.prod
     command: gunicorn -w 4 -b 0.0.0.0:5000 run:gunicorn_app
     volumes:
-      - ./obmovies:/app
+      - ./mflix_movies:/app
     ports:
       - 5000:5000
     networks:
